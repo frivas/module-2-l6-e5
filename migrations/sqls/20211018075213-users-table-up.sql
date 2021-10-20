@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS users(id SERIAL PRIMARY KEY, username VARCHAR(150), first_name VARCHAR(100), last_name VARCHAR(100), age integer, email VARCHAR(100), password_digest VARCHAR(255));
