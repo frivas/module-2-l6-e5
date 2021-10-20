@@ -48,18 +48,6 @@ export class UserStore {
         }
     };
 
-    async getAllUsersOrder(): Promise<unknown> {
-        try {
-            const conn = await Client.connect();
-            const sql = `SELECT * FROM users INNER JOIN orders ON users.id = orders.user_id`;
-            const { rows } = await conn.query(sql);
-            conn.release();
-            return rows;
-        } catch (err) {
-            throw new Error(`Error Getting a all users with orders => ${err}`)
-        }
-    };
-
     async updateUser(userId: number, userInfo: User): Promise<User> {
         try {
             const saltRounds: string = process.env.SALT_ROUNDS!;
