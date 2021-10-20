@@ -95,6 +95,16 @@ const deleteUser = async (req: Request, res: Response) => {
 
 };
 
+const getAllUsersOrders = async (req: Request, res: Response) => {
+    try {
+        const user = await store.getAllUsersOrder();
+        res.json(user)
+    } catch (err) {
+        res.status(400)
+        res.json(err)
+    }
+};
+
 const authenticate = async (req: Request, res: Response) => {
     try {
         const user = await store.authenticate(req.body.username, req.body.password);
@@ -110,6 +120,7 @@ const authenticate = async (req: Request, res: Response) => {
 
 const users_routes = (app: express.Application) => {
     app.get('/users', verifyAuthToken, index);
+    app.get('/users/orders', verifyAuthToken, getAllUsersOrders);
     app.get('/users/:userId', getUser);
     app.put('/users/:userId', verifyAuthToken, updateUser);
     app.post('/users', verifyAuthToken, addUser);
