@@ -2,7 +2,7 @@ import Client from '../database';
 import bcrypt from 'bcrypt';
 
 export type User = {
-    id?: number;
+    id?: Number;
     username: string;
     first_name: string;
     last_name: string;
@@ -36,7 +36,7 @@ export class UserStore {
         }
     };
 
-    async getUser(userId: number): Promise<User> {
+    async getUser(userId: Number): Promise<User> {
         try {
             const conn = await Client.connect();
             const sql = `SELECT * from users WHERE id=${userId}`;
@@ -48,7 +48,7 @@ export class UserStore {
         }
     };
 
-    async updateUser(userId: number, userInfo: User): Promise<User> {
+    async updateUser(userId: Number, userInfo: User): Promise<User> {
         try {
             const saltRounds: string = process.env.SALT_ROUNDS!;
             const pepper = process.env.BCRYPT_PASSWORD;
@@ -63,7 +63,7 @@ export class UserStore {
         }
     };
 
-    async deleteUser(userId: number): Promise<User> {
+    async deleteUser(userId: Number): Promise<User> {
         try {
             const conn = await Client.connect();
             const sql = `DELETE from users WHERE id=($1) RETURNING *`;

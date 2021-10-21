@@ -5,6 +5,8 @@ import users_routes from './handlers/users';
 import order_routes from './handlers/orders';
 import products_routes from './handlers/products';
 import dashboard_routes from './handlers/dashboard';
+import categories_routes from './handlers/categories';
+import status_routes from './handlers/statuses';
 
 const app: express.Application = express()
 const address: string = '0.0.0.0:3000'
@@ -29,6 +31,8 @@ users_routes(app);
 order_routes(app);
 products_routes(app);
 dashboard_routes(app);
+categories_routes(app);
+status_routes(app);
 
 app.listen(3000, () => {
     console.log(`starting app on: ${address}`)

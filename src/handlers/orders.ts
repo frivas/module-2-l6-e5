@@ -1,8 +1,10 @@
 import express, { Request, Response } from 'express';
 import { Order, OrderStore } from '../models/order';
+import { StatusStore } from '../models/status';
 import verifyAuthToken from '../middleware/verifyToken';
 
 const store = new OrderStore();
+const statusStore = new StatusStore();
 
 const index = async (_req: Request, res: Response) => {
     const orders = await store.index();
@@ -26,7 +28,7 @@ const getOrder = async (req: Request, res: Response) => {
 const addOrder = async (req: Request, res: Response) => {
     try {
         const order: Order = {
-            status: req.body.status,
+            status_id: parseInt(req.body.status_id),
             user_id: parseInt(req.body.user_id)
         }
 
@@ -44,7 +46,7 @@ const updateOrder = async (req: Request, res: Response) => {
     }
     try {
         const order: Order = {
-            status: req.body.status,
+            status_id: req.body.status_id,
             user_id: req.body.user_id
         }
         const orderId = <number>(<unknown> req.params.orderId);
@@ -77,7 +79,8 @@ const addProduct = async (req: Request, res: Response) => {
 
     try {
         const getOrder = await store.getOrder(orderId);
-        if (getOrder.status.toLowerCase() === "open") {
+        const getStatus = await statusStore.getStatus(getOrder.status_id);
+        if (getOrder.status_id == getStatus.id) {
             const addedProduct = await store.addProduct(quantity, orderId, productId);
             res.json(addedProduct);
         } else {
@@ -86,7 +89,18 @@ const addProduct = async (req: Request, res: Response) => {
     } catch (err) {
         res.status(400).json(err);
     }
-}
+};
+
+const getCompletedOrdersByUser = async (req: Request, res: Response) => {
+    try {
+        const username = req.params.username
+        const products = await store.getCompletedOrdersByUser(username);
+        res.json(products)
+    } catch (err) {
+        res.status(400)
+        res.json(err)
+    }
+};
 
 const order_routes = (app: express.Application) => {
     app.get('/orders', index);
@@ -95,6 +109,7 @@ const order_routes = (app: express.Application) => {
     app.post('/orders', verifyAuthToken, addOrder);
     app.post('/orders/:orderId/products', verifyAuthToken, addProduct);
     app.delete('/orders/:orderId', verifyAuthToken, deleteOder);
+    app.get('/orders/user/:username', verifyAuthToken, getCompletedOrdersByUser);
 };
 
 export default order_routes;

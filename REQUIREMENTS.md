@@ -4,65 +4,71 @@ The company stakeholders want to create an online storefront to showcase their g
 
 These are the notes from a meeting with the frontend developer that describe what endpoints the API needs to supply, as well as data shapes the frontend and backend have agreed meet the requirements of the application.
 
-## API Endpoints and Routes
+## API Endpoints
 
 #### Products
 
-- **API Endpoint: /products**
-- Index: `/products [GET]`
-- Show (args: product id): `/products/:id [GET]`
-- Create (args: Product)[token required]: `/products [POST]`
-- [OPTIONAL] Top 5 most popular products: `/products?show=<number> [GET]`
-- [OPTIONAL] Products by category (args: product category); `/products/:category [GET]`
+-   **API Endpoint: /products**
+-   Index: `/products [GET]`
+-   Show (args: product id): `/products/:id [GET]`
+-   Create (args: Product)[token required]: `/products [POST]`
+-   [OPTIONAL] Top 5 most popular products: `/products/<number> [GET]`
+-   [OPTIONAL] Products by category (args: product category); `/products/:category [GET]`
 
 #### Users
 
-- **API Endpoint: /users**
-- Index [token required]: `/users [GET]`
-- Show (args: id)[token required]: `/users/:id [GET]`
-- Create (args: User)[token required]: `/users/ [POST]`
+-   **API Endpoint: /users**
+-   Index [token required]: `/users [GET]`
+-   Show (args: id)[token required]: `/users/:id [GET]`
+-   Create (args: User)[token required]: `/users/ [POST]`
 
 #### Orders
 
-- **API Endpoint: /orders**
-- Current Order by user (args: user id)[token required]: `/orders/:user_id [GET]`
-- [OPTIONAL] Completed Orders by user (args: user id)[token required]: `/orders/:user_id/completed [GET]`
+-   **API Endpoint: /orders**
+-   Current Order by user (args: user id)[token required]: `/orders/:user_id [GET]`
+-   [OPTIONAL] Completed Orders by user (args: user id)[token required]: `/orders/:user_id/completed [GET]`
 
-## Data Shapes and Daatabase Table Schemas
+## Data Shapes
 
 #### Product
 
-- id
-- name
-- price
-- [OPTIONAL] category
-- DB Table Schema: Product(id:integer primary key, name:varchar, price:decimal, categoryid:integer[foreign key to Category])
+-   id
+-   name
+-   price
+-   [OPTIONAL] category
+-   DB Table Schema: Product(id:integer primary key, name:varchar, price:decimal, categoryid:integer[foreign key to Category])
 
 #### User
 
-- id
-- firstName
-- lastName
-- password
-- DB Table Schema: User(id: integer primary key, firstName: varchar, lastName: varchar, password: varchar)
+-   id
+-   firstName
+-   lastName
+-   password
+-   DB Table Schema: User(id: integer primary key, firstName: varchar, lastName: varchar, password: varchar)
 
 #### Orders
 
-- id
-- id of each product in the order
-- quantity of each product in the order
-- user_id
-- status of order (active or complete)
-- DB Table Schema: Orders(id: integer primary key, product_id: integer[foreign key to Product], number_of_product: integer, user_id:integer[foreign key to User], status: integer[foreign key to Status])
+-   id
+-   user_id
+-   status of order (open, completed, closed)
+-   DB Table Schema: Orders(id: integer primary key, user_id:integer[foreign key to User], status: integer[foreign key to Status])
+
+#### Products_Orders
+
+-   id
+-   id of each product in the order
+-   quantity of each product in the order
+-   user_id
+-   DB Table Schema: Orders(id: integer primary key, product_id: integer[foreign key to Product], quantity: integer, user_id:integer[foreign key to User])
 
 #### Category
 
-- id
-- name
-- DB Table Schema: Category(id: integer primary key, name: varchar)
+-   id
+-   name
+-   DB Table Schema: Category(id: integer primary key, name: varchar)
 
 #### Status
 
-- id
-- name
-- DB Table Schema: Status(id: integer primary key, name: varchar)
+-   id
+-   name (open, completed, closed)
+-   DB Table Schema: Status(id: integer primary key, name: varchar)

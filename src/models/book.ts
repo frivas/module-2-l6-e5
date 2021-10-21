@@ -1,9 +1,9 @@
 import Client from '../database';
 
 export type Book = {
-    id?: number;
+    id?: Number;
     title: string;
-    total_pages: number;
+    total_pages: Number;
     author: string;
     type: string;
     summary: string;
@@ -31,7 +31,7 @@ export class BookStore {
         }
     }
 
-    async getBook(bookId: number): Promise<Book> {
+    async getBook(bookId: Number): Promise<Book> {
         try {
             const conn = await Client.connect();
             const sql = `SELECT * from books WHERE id=${bookId}`;
@@ -43,7 +43,7 @@ export class BookStore {
         }
     }
 
-    async updateBook(bookId: number, bookInfo: Book): Promise<Book> {
+    async updateBook(bookId: Number, bookInfo: Book): Promise<Book> {
         try {
             const conn = await Client.connect();
             const sql = `UPDATE books SET title=$1, total_pages=$2, author=$3, type=$4, summary=$5 WHERE id=($6) RETURNING *`;
@@ -55,7 +55,7 @@ export class BookStore {
         }
     }
 
-    async deleteBook(bookId: number): Promise<Book> {
+    async deleteBook(bookId: Number): Promise<Book> {
         try {
             const conn = await Client.connect();
             const sql = `DELETE from books WHERE id=($1) RETURNING *`;

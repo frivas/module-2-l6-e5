@@ -27,7 +27,8 @@ const addProduct = async (req: Request, res: Response) => {
     try {
         const product: Product = {
             name: req.body.name,
-            price: req.body.price
+            price: req.body.price,
+            category_id: req.body.category_id
         }
 
         const newProduct = await store.addProduct(product)
@@ -46,7 +47,8 @@ const updateProduct = async (req: Request, res: Response) => {
         const product: Product = {
             id: parseInt(req.params.productId),
             name: req.body.name,
-            price: req.body.price
+            price: req.body.price,
+            category_id: req.body.category_id
         }
         const productId = <number>(<unknown> req.params.productId);
         const updateProduct = await store.updateProduct(productId, product);

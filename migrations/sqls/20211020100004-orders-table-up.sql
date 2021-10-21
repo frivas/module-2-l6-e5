@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS orders(id SERIAL PRIMARY KEY, status_id bigint REFERENCES status(id), user_id bigint REFERENCES users(id));
