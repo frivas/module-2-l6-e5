@@ -1,6 +1,6 @@
 import { Order, OrderStore } from '../order';
 import { Status, StatusStore } from '../status';
-import { User, UserStore } from '../user';
+import { UserStore } from '../user';
 
 const store = new OrderStore();
 const statusStore = new StatusStore();
@@ -10,10 +10,10 @@ describe('Order Store Model ', () => {
     beforeAll(async () => {
         const openStatus: Status = {
             name: 'open'
-        }
+        };
         const closedStatus = {
             name: 'closed'
-        }
+        };
         const newUser = {
             username: 'trex',
             first_name: 'Tyrell',
@@ -21,7 +21,7 @@ describe('Order Store Model ', () => {
             age: 30,
             email: 'trex@gmail.com',
             password_digest: 'test123'
-        }
+        };
         await userStore.addUser(newUser);
         await statusStore.addStatus(openStatus);
         await statusStore.addStatus(closedStatus);
@@ -56,13 +56,13 @@ describe('Order Store Model ', () => {
         const newOrder: Order = {
             status_id: 2,
             user_id: 2
-        }
+        };
 
         const expectedOrder = {
             id: 1,
             status_id: jasmine.any(String),
             user_id: jasmine.any(String)
-        }
+        };
         const result = await store.addOrder(newOrder);
         expect(result).toEqual(expectedOrder);
     });
@@ -72,7 +72,7 @@ describe('Order Store Model ', () => {
             id: 1,
             status_id: jasmine.any(String),
             user_id: jasmine.any(String)
-        }
+        };
         const result = await store.getOrder(1);
         expect(result).toEqual(expectedOrder);
     });
@@ -82,12 +82,12 @@ describe('Order Store Model ', () => {
             id: 1,
             status_id: 3,
             user_id: 2
-        }
+        };
         const expectedOrder = {
             id: 1,
             status_id: jasmine.any(String),
             user_id: jasmine.any(String)
-        }
+        };
         const result = await store.updateOrder(1, updateOrder);
         expect(result).toEqual(expectedOrder);
     });
@@ -97,7 +97,7 @@ describe('Order Store Model ', () => {
             id: 1,
             status_id: jasmine.any(String),
             user_id: jasmine.any(String)
-        }
+        };
         const result = await store.deleteOrder(1);
         expect(result).toEqual(expectedOrder);
     });

@@ -1,5 +1,4 @@
 import { User, UserStore } from '../user';
-import bcrypt from 'bcrypt';
 
 const store = new UserStore();
 
@@ -37,7 +36,7 @@ describe('User Store Model ', () => {
             age: 30,
             email: 'trex@gmail.com',
             password_digest: 'text123'
-        }
+        };
 
         const expectedUser = {
             id: 1,
@@ -47,7 +46,7 @@ describe('User Store Model ', () => {
             age: 30,
             email: 'trex@gmail.com',
             password_digest: jasmine.any(String)
-        }
+        };
         const result = await store.addUser(newUser);
         expect(result).toEqual(expectedUser);
     });
@@ -61,7 +60,7 @@ describe('User Store Model ', () => {
             age: 30,
             email: 'trex@gmail.com',
             password_digest: jasmine.any(String)
-        }
+        };
         const result = await store.getUser(1);
         expect(result).toEqual(expectedUser);
     });
@@ -75,8 +74,7 @@ describe('User Store Model ', () => {
             age: 30,
             email: 'trex@gmail.com',
             password_digest: 'test123'
-        }
-
+        };
 
         const result = await store.updateUser(1, updateUser);
         const userInfo = await store.getUser(1);
@@ -88,7 +86,7 @@ describe('User Store Model ', () => {
             age: 30,
             email: 'trex@gmail.com',
             password_digest: userInfo.password_digest
-        }
+        };
         expect(result).toEqual(expectedUser);
     });
 
@@ -101,7 +99,7 @@ describe('User Store Model ', () => {
             age: 30,
             email: 'trex@gmail.com',
             password_digest: jasmine.any(String)
-        }
+        };
         const result = await store.deleteUser(1);
         expect(result).toEqual(expectedUser);
     });

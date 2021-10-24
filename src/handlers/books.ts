@@ -11,15 +11,15 @@ const index = async (_req: Request, res: Response) => {
 
 const getBook = async (req: Request, res: Response) => {
     if (!req.params.bookId) {
-        res.status(400).json({ 'error': 'Please, specify a valid book id.' })
+        res.status(400).json({ error: 'Please, specify a valid book id.' });
     }
     try {
-        const bookId = <number>(<unknown> req.params.bookId);
-        const book = await store.getBook(bookId)
-        res.json(book)
+        const bookId = <number>(<unknown>req.params.bookId);
+        const book = await store.getBook(bookId);
+        res.json(book);
     } catch (err) {
-        res.status(400)
-        res.json(err)
+        res.status(400);
+        res.json(err);
     }
 };
 
@@ -31,19 +31,19 @@ const addBook = async (req: Request, res: Response) => {
             type: req.body.type,
             total_pages: req.body.total_pages,
             summary: req.body.summary
-        }
+        };
 
-        const newBook = await store.addBook(book)
-        res.json(newBook)
+        const newBook = await store.addBook(book);
+        res.json(newBook);
     } catch (err) {
-        res.status(400)
-        res.json(err)
+        res.status(400);
+        res.json(err);
     }
 };
 
 const updateBook = async (req: Request, res: Response) => {
     if (!req.params.bookId) {
-        res.status(400).json({ 'error': 'Please, specify a valid book id.' })
+        res.status(400).json({ error: 'Please, specify a valid book id.' });
     }
     try {
         const book: Book = {
@@ -53,27 +53,27 @@ const updateBook = async (req: Request, res: Response) => {
             type: req.body.type,
             total_pages: req.body.total_pages,
             summary: req.body.summary
-        }
-        const bookId = <number>(<unknown> req.params.bookId);
-        const updatedBook = await store.updateBook(bookId, book)
-        res.json(updatedBook)
+        };
+        const bookId = <number>(<unknown>req.params.bookId);
+        const updatedBook = await store.updateBook(bookId, book);
+        res.json(updatedBook);
     } catch (err) {
-        res.status(400)
-        res.json(err)
+        res.status(400);
+        res.json(err);
     }
-}
+};
 
 const deleteBook = async (req: Request, res: Response) => {
     if (!req.params.bookId) {
-        res.status(400).json({ 'error': 'Please, specify a valid book id.' })
+        res.status(400).json({ error: 'Please, specify a valid book id.' });
     }
     try {
-        const bookId = <number>(<unknown> req.params.bookId);
-        const deleted = await store.deleteBook(bookId)
-        res.json(deleted)
+        const bookId = <number>(<unknown>req.params.bookId);
+        const deleted = await store.deleteBook(bookId);
+        res.json(deleted);
     } catch (err) {
-        res.status(400)
-        res.json(err)
+        res.status(400);
+        res.json(err);
     }
 };
 
@@ -85,4 +85,4 @@ const books_routes = (app: express.Application) => {
     app.delete('/books/:bookId', verifyAuthToken, deleteBook);
 };
 
-export default books_routes
+export default books_routes;

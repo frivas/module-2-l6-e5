@@ -10,23 +10,57 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 -   **API Endpoint: /products**
 -   Index: `/products [GET]`
--   Show (args: product id): `/products/:id [GET]`
+-   Show (args: productId): `/products/:id [GET]`
 -   Create (args: Product)[token required]: `/products [POST]`
--   [OPTIONAL] Top 5 most popular products: `/products/<number> [GET]`
--   [OPTIONAL] Products by category (args: product category); `/products/:category [GET]`
+-   Update (args: ProductId, Product)[token required]: `/products/:id [PUT]`
+-   Delete (args: ProductId)[token required]: `/products/:id [DELETE]`
 
 #### Users
 
 -   **API Endpoint: /users**
--   Index [token required]: `/users [GET]`
--   Show (args: id)[token required]: `/users/:id [GET]`
--   Create (args: User)[token required]: `/users/ [POST]`
+-   Index: `/users [GET]`
+-   Show (args: userId): `/users/:id [GET]`
+-   Create (args: User)[token required]: `/users [POST]`
+-   Update (args: UserId, User)[token required]: `/users/:id [PUT]`
+-   Delete (args: UserId)[token required]: `/users/:id [DELETE]`
 
 #### Orders
 
 -   **API Endpoint: /orders**
--   Current Order by user (args: user id)[token required]: `/orders/:user_id [GET]`
--   [OPTIONAL] Completed Orders by user (args: user id)[token required]: `/orders/:user_id/completed [GET]`
+-   Index: `/orders [GET]`
+-   Show (args: orderId): `/orders/:id [GET]`
+-   Create (args: Order)[token required]: `/orders [POST]`
+-   Update (args: orderId, Order)[token required]: `/orders/:id [PUT]`
+-   Delete (args: orderId)[token required]: `/orders/:id [DELETE]`
+-   Current Order by user (args: userId)[token required]: `/orders/user/:user_id [GET]`
+-   [OPTIONAL] Completed Orders by user (args: userId)[token required]: `/orders/:user_id/completed [GET]`
+
+#### Categories
+
+-   **API Endpoint: /categories**
+-   Index: `/categories [GET]`
+-   Show (args: categoryId): `/categories/:id [GET]`
+-   Create (args: Category)[token required]: `/categories [POST]`
+-   Update (args: categoryId, Category)[token required]: `/categories/:id [PUT]`
+-   Delete (args: categoryId)[token required]: `/categories/:id [DELETE]`
+
+#### Status
+
+-   **API Endpoint: /statuses**
+-   Index: `/statuses [GET]`
+-   Show (args: statusId): `/statuses/:id [GET]`
+-   Create (args: Status)[token required]: `/statuses [POST]`
+-   Update (args: statusId, Status)[token required]: `/statuses/:id [PUT]`
+-   Delete (args: statusId)[token required]: `/statuses/:id [DELETE]`
+
+#### Dashboard
+
+-   [OPTIONAL] Top 5 most popular products: `/popular/<number> [GET]`
+-   [OPTIONAL] Products by category (args: product category); `/products_in_category/ [GET]`
+-   [OPTIONAL] Products by category (args: product category); `/expensive_products/<number> [GET]`
+-   [OPTIONAL] Products by category (args: product category); `/users_with_orders/ [GET]`
+
+
 
 ## Data Shapes
 
@@ -35,16 +69,18 @@ These are the notes from a meeting with the frontend developer that describe wha
 -   id
 -   name
 -   price
--   [OPTIONAL] category
--   DB Table Schema: Product(id:integer primary key, name:varchar, price:decimal, categoryid:integer[foreign key to Category])
+-   [OPTIONAL] category_id
+-   DB Table Schema: Product(id:integer primary key, name:varchar, price:decimal, category_id:integer[foreign key to Category])
 
 #### User
 
 -   id
--   firstName
--   lastName
--   password
--   DB Table Schema: User(id: integer primary key, firstName: varchar, lastName: varchar, password: varchar)
+-   first_name
+-   last_name
+-   age
+-   email
+-   password_digest
+-   DB Table Schema: User(id: integer primary key, first_name varchar, last_name varchar, age integer, email varchar, password_digest varchar)
 
 #### Orders
 
@@ -56,8 +92,8 @@ These are the notes from a meeting with the frontend developer that describe wha
 #### Products_Orders
 
 -   id
--   id of each product in the order
--   quantity of each product in the order
+-   product_id
+-   quantity
 -   user_id
 -   DB Table Schema: Orders(id: integer primary key, product_id: integer[foreign key to Product], quantity: integer, user_id:integer[foreign key to User])
 

@@ -31,12 +31,12 @@ describe('Status Store Model ', () => {
     it('Create method: creates a new status and returns it.', async () => {
         const newStatus: Status = {
             name: 'open'
-        }
+        };
 
         const expectedStatus: Status = {
             id: 1,
             name: 'open'
-        }
+        };
         const result = await store.addStatus(newStatus);
         expect(result).toEqual(expectedStatus);
     });
@@ -45,7 +45,7 @@ describe('Status Store Model ', () => {
         const expectedStatus: Status = {
             id: 1,
             name: 'open'
-        }
+        };
         const result = await store.getStatus(1);
         expect(result).toEqual(expectedStatus);
     });
@@ -54,7 +54,7 @@ describe('Status Store Model ', () => {
         const expectedStatus: Status = {
             id: 1,
             name: 'Economy'
-        }
+        };
         const result = await store.updateStatus(1, expectedStatus);
         expect(result).toEqual(expectedStatus);
     });
@@ -63,7 +63,7 @@ describe('Status Store Model ', () => {
         const expectedStatus: Status = {
             id: 1,
             name: 'Economy'
-        }
+        };
         const result = await store.deleteStatus(1);
         expect(result).toEqual(expectedStatus);
     });

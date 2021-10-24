@@ -11,15 +11,15 @@ const index = async (_req: Request, res: Response) => {
 
 const getStatus = async (req: Request, res: Response) => {
     if (!req.params.statusId) {
-        res.status(400).json({ 'error': 'Please, specify a valid status id.' })
+        res.status(400).json({ error: 'Please, specify a valid status id.' });
     }
     try {
-        const statusId = <number>(<unknown> req.params.statusId);
-        const status = await store.getStatus(statusId)
-        res.json(status)
+        const statusId = <number>(<unknown>req.params.statusId);
+        const status = await store.getStatus(statusId);
+        res.json(status);
     } catch (err) {
-        res.status(400)
-        res.json(err)
+        res.status(400);
+        res.json(err);
     }
 };
 
@@ -27,45 +27,45 @@ const addStatus = async (req: Request, res: Response) => {
     try {
         const status: Status = {
             name: req.body.name
-        }
+        };
 
-        const newStatus = await store.addStatus(status)
+        const newStatus = await store.addStatus(status);
         res.json(newStatus);
     } catch (err) {
-        res.status(400)
-        res.json(err)
+        res.status(400);
+        res.json(err);
     }
 };
 
 const updateStatus = async (req: Request, res: Response) => {
     if (!req.params.statusId) {
-        res.status(400).json({ 'error': 'Please, specify a valid status id.' })
+        res.status(400).json({ error: 'Please, specify a valid status id.' });
     }
     try {
         const status: Status = {
             id: parseInt(req.params.statusId),
             name: req.body.name
-        }
-        const statusId = <number>(<unknown> req.params.statusId);
-        const updatedStatus = await store.updateStatus(statusId, status)
-        res.json(updatedStatus)
+        };
+        const statusId = <number>(<unknown>req.params.statusId);
+        const updatedStatus = await store.updateStatus(statusId, status);
+        res.json(updatedStatus);
     } catch (err) {
-        res.status(400)
-        res.json(err)
+        res.status(400);
+        res.json(err);
     }
-}
+};
 
 const deleteStatus = async (req: Request, res: Response) => {
     if (!req.params.statusId) {
-        res.status(400).json({ 'error': 'Please, specify a valid status id.' })
+        res.status(400).json({ error: 'Please, specify a valid status id.' });
     }
     try {
-        const statusId = <number>(<unknown> req.params.statusId);
-        const updatedStatus = await store.deleteStatus(statusId)
-        res.json(updatedStatus)
+        const statusId = <number>(<unknown>req.params.statusId);
+        const updatedStatus = await store.deleteStatus(statusId);
+        res.json(updatedStatus);
     } catch (err) {
-        res.status(400)
-        res.json(err)
+        res.status(400);
+        res.json(err);
     }
 };
 

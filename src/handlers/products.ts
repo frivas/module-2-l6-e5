@@ -11,15 +11,15 @@ const index = async (_req: Request, res: Response) => {
 
 const getProduct = async (req: Request, res: Response) => {
     if (!req.params.productId) {
-        res.status(400).json({ 'error': 'Please, specify a valid product id.' })
+        res.status(400).json({ error: 'Please, specify a valid product id.' });
     }
     try {
-        const productId = <number>(<unknown> req.params.bookId);
-        const product = await store.getProduct(productId)
-        res.json(product)
+        const productId = <number>(<unknown>req.params.bookId);
+        const product = await store.getProduct(productId);
+        res.json(product);
     } catch (err) {
-        res.status(400)
-        res.json(err)
+        res.status(400);
+        res.json(err);
     }
 };
 
@@ -29,19 +29,19 @@ const addProduct = async (req: Request, res: Response) => {
             name: req.body.name,
             price: req.body.price,
             category_id: req.body.category_id
-        }
+        };
 
-        const newProduct = await store.addProduct(product)
-        res.json(newProduct)
+        const newProduct = await store.addProduct(product);
+        res.json(newProduct);
     } catch (err) {
-        res.status(400)
-        res.json(err)
+        res.status(400);
+        res.json(err);
     }
 };
 
 const updateProduct = async (req: Request, res: Response) => {
     if (!req.params.productId) {
-        res.status(400).json({ 'error': 'Please, specify a valid product id.' })
+        res.status(400).json({ error: 'Please, specify a valid product id.' });
     }
     try {
         const product: Product = {
@@ -49,27 +49,27 @@ const updateProduct = async (req: Request, res: Response) => {
             name: req.body.name,
             price: req.body.price,
             category_id: req.body.category_id
-        }
-        const productId = <number>(<unknown> req.params.productId);
+        };
+        const productId = <number>(<unknown>req.params.productId);
         const updateProduct = await store.updateProduct(productId, product);
         res.json(updateProduct);
     } catch (err) {
-        res.status(400)
-        res.json(err)
+        res.status(400);
+        res.json(err);
     }
-}
+};
 
 const deleteProduct = async (req: Request, res: Response) => {
     if (!req.params.productId) {
-        res.status(400).json({ 'error': 'Please, specify a valid product id.' })
+        res.status(400).json({ error: 'Please, specify a valid product id.' });
     }
     try {
-        const productId = <number>(<unknown> req.params.productId);
-        const deletedProduct = await store.deleteProduct(productId)
-        res.json(deletedProduct)
+        const productId = <number>(<unknown>req.params.productId);
+        const deletedProduct = await store.deleteProduct(productId);
+        res.json(deletedProduct);
     } catch (err) {
-        res.status(400)
-        res.json(err)
+        res.status(400);
+        res.json(err);
     }
 };
 
@@ -81,4 +81,4 @@ const products_routes = (app: express.Application) => {
     app.delete('/products/:productId', verifyAuthToken, deleteProduct);
 };
 
-export default products_routes
+export default products_routes;

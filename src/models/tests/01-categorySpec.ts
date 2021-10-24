@@ -31,12 +31,12 @@ describe('Category Store Model ', () => {
     it('Create method: creates a new category and returns it.', async () => {
         const newCategory: Category = {
             name: 'Crime'
-        }
+        };
 
         const expectedCategory: Category = {
             id: 1,
             name: 'Crime'
-        }
+        };
         const result = await store.addCategory(newCategory);
         expect(result).toEqual(expectedCategory);
     });
@@ -45,7 +45,7 @@ describe('Category Store Model ', () => {
         const expectedCategory: Category = {
             id: 1,
             name: 'Crime'
-        }
+        };
         const result = await store.getCategory(1);
         expect(result).toEqual(expectedCategory);
     });
@@ -54,7 +54,7 @@ describe('Category Store Model ', () => {
         const expectedCategory: Category = {
             id: 1,
             name: 'Economy'
-        }
+        };
         const result = await store.updateCategory(1, expectedCategory);
         expect(result).toEqual(expectedCategory);
     });
@@ -63,7 +63,7 @@ describe('Category Store Model ', () => {
         const expectedCategory: Category = {
             id: 1,
             name: 'Economy'
-        }
+        };
         const result = await store.deleteCategory(1);
         expect(result).toEqual(expectedCategory);
     });

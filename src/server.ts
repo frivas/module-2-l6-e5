@@ -8,23 +8,23 @@ import dashboard_routes from './handlers/dashboard';
 import categories_routes from './handlers/categories';
 import status_routes from './handlers/statuses';
 
-const app: express.Application = express()
-const address: string = '0.0.0.0:3000'
+const app: express.Application = express();
+const address = '0.0.0.0:3000';
 
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.get('/', async (req: Request, res: Response) => {
     try {
-        client.connect()
-        let result = await client.query('SELECT NOW()');
+        client.connect();
+        const result = await client.query('SELECT NOW()');
         console.log(result.rows);
-        client.end()
-        res.send('Hello World!')
+        client.end();
+        res.send({ message: 'Server is Up!' });
     } catch (err) {
         throw new Error(`Error => ${err}`);
     }
-})
+});
 
 books_routes(app);
 users_routes(app);
@@ -35,5 +35,7 @@ categories_routes(app);
 status_routes(app);
 
 app.listen(3000, () => {
-    console.log(`starting app on: ${address}`)
-})
+    console.log(`starting app on: ${address}`);
+});
+
+export default app;
