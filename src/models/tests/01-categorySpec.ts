@@ -34,7 +34,7 @@ describe('Category Store Model ', () => {
         };
 
         const expectedCategory: Category = {
-            id: 1,
+            id: 2,
             name: 'Crime'
         };
         const result = await store.addCategory(newCategory);
@@ -43,28 +43,28 @@ describe('Category Store Model ', () => {
 
     it('Read method: returns a specific category by its id.', async () => {
         const expectedCategory: Category = {
-            id: 1,
+            id: 2,
             name: 'Crime'
         };
-        const result = await store.getCategory(1);
+        const result = await store.getCategory(2);
         expect(result).toEqual(expectedCategory);
     });
 
     it('Update method: updates a specific category by its id and the data to be changed.', async () => {
         const expectedCategory: Category = {
-            id: 1,
+            id: 2,
             name: 'Economy'
         };
-        const result = await store.updateCategory(1, expectedCategory);
+        const result = await store.updateCategory(2, expectedCategory);
         expect(result).toEqual(expectedCategory);
     });
 
     it('Delete method: updates a specific category by its id.', async () => {
         const expectedCategory: Category = {
-            id: 1,
+            id: 2,
             name: 'Economy'
         };
-        const result = await store.deleteCategory(1);
+        const result = await store.deleteCategory(2);
         expect(result).toEqual(expectedCategory);
     });
 });

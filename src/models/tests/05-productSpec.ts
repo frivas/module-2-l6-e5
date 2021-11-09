@@ -63,7 +63,7 @@ describe('Product Store Model ', () => {
         const newProduct: Product = {
             name: 'Product_1',
             price: 3,
-            category_id: 2
+            category_id: 3
         };
 
         const expectedProduct = {
@@ -91,7 +91,7 @@ describe('Product Store Model ', () => {
         const updateProduct: Product = {
             name: 'Product_Test',
             price: 10,
-            category_id: 2
+            category_id: 3
         };
         const expectedProduct = {
             id: 1,

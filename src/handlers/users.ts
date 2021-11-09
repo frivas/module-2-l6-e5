@@ -37,13 +37,13 @@ const addUser = async (req: Request, res: Response) => {
             last_name: req.body.last_name,
             age: req.body.age,
             email: req.body.email,
-            password_digest: req.body.password
+            password_digest: req.body.password_digest
         };
 
         const newUser = await store.addUser(user);
         if (process.env.TOKEN_SECRET) {
-            const token = jwt.sign({ user: newUser }, process.env.TOKEN_SECRET);
-            res.json(token);
+            // const token = jwt.sign({ user: newUser }, process.env.TOKEN_SECRET);
+            res.json(newUser);
         } else {
             console.log(
                 'Please include a TOKEN_SECRET variable in the .env file.'
@@ -67,7 +67,7 @@ const updateUser = async (req: Request, res: Response) => {
             last_name: req.body.last_name,
             age: req.body.age,
             email: req.body.email,
-            password_digest: req.body.password
+            password_digest: req.body.password_digest
         };
 
         const authorizationHeader = req.headers.authorization;
@@ -98,9 +98,13 @@ const deleteUser = async (req: Request, res: Response) => {
     if (!req.params.userId) {
         res.status(400).json({ error: 'Please, specify a valid user id.' });
     }
+
     try {
         const userId = <number>(<unknown>req.params.userId);
         const deleted = await store.deleteUser(userId);
+        if (!deleted) {
+            throw new Error('User not found.');
+        }
         res.json(deleted);
     } catch (err) {
         res.status(400);
@@ -114,14 +118,15 @@ const authenticate = async (req: Request, res: Response) => {
             req.body.username,
             req.body.password
         );
+
         if (!user) {
-            res.status(401).json({
+            return res.status(401).json({
                 error: 'Could not authenticate the user. Please, verify the username and password.'
             });
         }
         if (process.env.TOKEN_SECRET) {
             const token = jwt.sign({ user }, process.env.TOKEN_SECRET);
-            res.json(token);
+            return res.json(token);
         } else {
             console.log(
                 'Please include a TOKEN_SECRET variable in the .env file.'
@@ -138,7 +143,7 @@ const users_routes = (app: express.Application) => {
     app.get('/users', verifyAuthToken, index);
     app.get('/users/:userId', getUser);
     app.put('/users/:userId', verifyAuthToken, updateUser);
-    app.post('/users', verifyAuthToken, addUser);
+    app.post('/users', addUser);
     app.delete('/users/:userId', verifyAuthToken, deleteUser);
     app.post('/login', authenticate);
 };

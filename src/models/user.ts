@@ -22,14 +22,15 @@ export class UserStore {
 
     async addUser(user: User): Promise<User> {
         try {
-            let saltRounds: string;
+            let saltRounds: number;
             let hash;
             if (process.env.SALT_ROUNDS) {
-                saltRounds = process.env.SALT_ROUNDS;
+                saltRounds = parseInt(process.env.SALT_ROUNDS);
                 const pepper = process.env.BCRYPT_PASSWORD;
+                const generatedSalt = bcrypt.genSaltSync(saltRounds);
                 hash = bcrypt.hashSync(
                     user.password_digest + pepper,
-                    parseInt(saltRounds)
+                    generatedSalt
                 );
             }
 
@@ -65,14 +66,15 @@ export class UserStore {
 
     async updateUser(userId: number, userInfo: User): Promise<User> {
         try {
-            let saltRounds: string;
+            let saltRounds: number;
             let hash;
             if (process.env.SALT_ROUNDS) {
-                saltRounds = process.env.SALT_ROUNDS;
+                saltRounds = parseInt(process.env.SALT_ROUNDS);
                 const pepper = process.env.BCRYPT_PASSWORD;
+                const generatedSalt = bcrypt.genSaltSync(saltRounds);
                 hash = bcrypt.hashSync(
                     userInfo.password_digest + pepper,
-                    parseInt(saltRounds)
+                    generatedSalt
                 );
             }
             const conn = await Client.connect();
@@ -113,12 +115,10 @@ export class UserStore {
             const pepper = process.env.BCRYPT_PASSWORD;
             const conn = await Client.connect();
             const sql = 'SELECT * FROM users WHERE username=($1)';
-
             const result = await conn.query(sql, [username]);
 
             if (result.rows.length) {
                 const user = result.rows[0];
-
                 if (
                     bcrypt.compareSync(password + pepper, user.password_digest)
                 ) {

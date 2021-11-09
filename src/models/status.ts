@@ -42,7 +42,7 @@ export class StatusStore {
     async updateStatus(statusId: number, statusInfo: Status): Promise<Status> {
         try {
             const conn = await Client.connect();
-            const sql = `UPDATE status SET name=$1 WHERE id=($2) RETURNING *`;
+            const sql = `UPDATE status SET name=($1) WHERE id=($2) RETURNING *`;
             const { rows } = await conn.query(sql, [statusInfo.name, statusId]);
             conn.release();
             return rows[0];

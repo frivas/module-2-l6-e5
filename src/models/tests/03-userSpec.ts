@@ -35,11 +35,11 @@ describe('User Store Model ', () => {
             last_name: 'Rexomberg',
             age: 30,
             email: 'trex@gmail.com',
-            password_digest: 'text123'
+            password_digest: 'test123'
         };
 
         const expectedUser = {
-            id: 1,
+            id: 3,
             username: 'trex',
             first_name: 'Tyrell',
             last_name: 'Rexomberg',
@@ -53,7 +53,7 @@ describe('User Store Model ', () => {
 
     it('Read method: returns a specific user by its id.', async () => {
         const expectedUser = {
-            id: 1,
+            id: 3,
             username: 'trex',
             first_name: 'Tyrell',
             last_name: 'Rexomberg',
@@ -61,13 +61,13 @@ describe('User Store Model ', () => {
             email: 'trex@gmail.com',
             password_digest: jasmine.any(String)
         };
-        const result = await store.getUser(1);
+        const result = await store.getUser(3);
         expect(result).toEqual(expectedUser);
     });
 
     it('Update method: updates a specific user by its id and the data to be changed.', async () => {
         const updateUser: User = {
-            id: 1,
+            id: 3,
             username: 'trex',
             first_name: 'Tyron',
             last_name: 'Rexomberg',
@@ -76,10 +76,10 @@ describe('User Store Model ', () => {
             password_digest: 'test123'
         };
 
-        const result = await store.updateUser(1, updateUser);
-        const userInfo = await store.getUser(1);
+        const result = await store.updateUser(3, updateUser);
+        const userInfo = await store.getUser(3);
         const expectedUser: User = {
-            id: 1,
+            id: 3,
             username: 'trex',
             first_name: 'Tyron',
             last_name: 'Rexomberg',
@@ -92,7 +92,7 @@ describe('User Store Model ', () => {
 
     it('Delete method: updates a specific user by its id.', async () => {
         const expectedUser = {
-            id: 1,
+            id: 3,
             username: 'trex',
             first_name: 'Tyron',
             last_name: 'Rexomberg',
@@ -100,7 +100,7 @@ describe('User Store Model ', () => {
             email: 'trex@gmail.com',
             password_digest: jasmine.any(String)
         };
-        const result = await store.deleteUser(1);
+        const result = await store.deleteUser(3);
         expect(result).toEqual(expectedUser);
     });
 });

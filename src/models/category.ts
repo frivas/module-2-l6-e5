@@ -45,7 +45,7 @@ export class CategoryStore {
     ): Promise<Category> {
         try {
             const conn = await Client.connect();
-            const sql = `UPDATE category SET name=$1 WHERE id=($2) RETURNING *`;
+            const sql = `UPDATE category SET name=($1) WHERE id=($2) RETURNING *`;
             const { rows } = await conn.query(sql, [
                 categoryInfo.name,
                 categoryId

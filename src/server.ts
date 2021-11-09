@@ -1,5 +1,4 @@
 import express, { Request, Response } from 'express';
-import client from './database';
 import books_routes from './handlers/books';
 import users_routes from './handlers/users';
 import order_routes from './handlers/orders';
@@ -16,10 +15,6 @@ app.use(express.urlencoded({ extended: true }));
 
 app.get('/', async (req: Request, res: Response) => {
     try {
-        client.connect();
-        const result = await client.query('SELECT NOW()');
-        console.log(result.rows);
-        client.end();
         res.send({ message: 'Server is Up!' });
     } catch (err) {
         throw new Error(`Error => ${err}`);
