@@ -32,7 +32,7 @@ describe('User Test Suit', () => {
             last_name: 'Rexomberg',
             age: 30,
             email: 'trex@gmail.com',
-            password_digest: 'test123'
+            password: 'test123'
         };
         const response = await request.post('/users').send(newUser);
         expect(response.status).toBe(200);
@@ -62,7 +62,7 @@ describe('User Test Suit', () => {
             last_name: 'Rexomberg',
             age: 30,
             email: 'trex@gmail.com',
-            password_digest: 'test123'
+            password: 'test123'
         };
         const response = await request
             .put('/users/1')

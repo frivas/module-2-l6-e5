@@ -8,7 +8,7 @@ export type User = {
     last_name: string;
     age: number;
     email: string;
-    password_digest: string;
+    password: string;
 };
 
 export class UserStore {
@@ -28,10 +28,7 @@ export class UserStore {
                 saltRounds = parseInt(process.env.SALT_ROUNDS);
                 const pepper = process.env.BCRYPT_PASSWORD;
                 const generatedSalt = bcrypt.genSaltSync(saltRounds);
-                hash = bcrypt.hashSync(
-                    user.password_digest + pepper,
-                    generatedSalt
-                );
+                hash = bcrypt.hashSync(user.password + pepper, generatedSalt);
             }
 
             const conn = await Client.connect();
@@ -73,7 +70,7 @@ export class UserStore {
                 const pepper = process.env.BCRYPT_PASSWORD;
                 const generatedSalt = bcrypt.genSaltSync(saltRounds);
                 hash = bcrypt.hashSync(
-                    userInfo.password_digest + pepper,
+                    userInfo.password + pepper,
                     generatedSalt
                 );
             }

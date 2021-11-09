@@ -22,7 +22,7 @@ describe('Product Store Model ', () => {
             last_name: 'Rexomberg',
             age: 30,
             email: 'trex@gmail.com',
-            password_digest: 'test123'
+            password: 'test123'
         };
 
         const newCategory = {

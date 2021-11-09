@@ -37,7 +37,7 @@ const addUser = async (req: Request, res: Response) => {
             last_name: req.body.last_name,
             age: req.body.age,
             email: req.body.email,
-            password_digest: req.body.password_digest
+            password: req.body.password
         };
 
         const newUser = await store.addUser(user);
@@ -67,7 +67,7 @@ const updateUser = async (req: Request, res: Response) => {
             last_name: req.body.last_name,
             age: req.body.age,
             email: req.body.email,
-            password_digest: req.body.password_digest
+            password: req.body.password
         };
 
         const authorizationHeader = req.headers.authorization;

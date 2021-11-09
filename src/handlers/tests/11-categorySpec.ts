@@ -38,7 +38,7 @@ describe('Category Test Suite', () => {
             last_name: 'Rexomberg',
             age: 30,
             email: 'trex@gmail.com',
-            password_digest: 'test123'
+            password: 'test123'
         };
         await request.post('/users').send(newUser);
 

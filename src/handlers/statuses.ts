@@ -46,6 +46,7 @@ const updateStatus = async (req: Request, res: Response) => {
             id: parseInt(req.params.statusId),
             name: req.body.name
         };
+
         const statusId = <number>(<unknown>req.params.statusId);
         const updatedStatus = await store.updateStatus(statusId, status);
         res.json(updatedStatus);
